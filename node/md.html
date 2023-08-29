@@ -1,0 +1,352 @@
+<style>
+  pre {
+  position: relative;
+}
+.m-mdic-copy-wrapper {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+.m-mdic-copy-wrapper span.u-mdic-copy-code_lang {
+  position: absolute;
+  top: 3px;
+  right: calc(100% + 4px);
+  font-family: system-ui;
+  font-size: 12px;
+  line-height: 18px;
+  color: #666;
+  opacity: 0.3;
+}
+.m-mdic-copy-wrapper div.u-mdic-copy-notify {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3px 6px;
+  border: 0;
+  border-radius: 3px;
+  background: none;
+  font-family: system-ui;
+  font-size: 12px;
+  line-height: 18px;
+  color: #666;
+  opacity: 0.3;
+  outline: none;
+  opacity: 1;
+  right: 100%;
+  padding-right: 4px;
+}
+.m-mdic-copy-wrapper button.u-mdic-copy-btn {
+  position: relative;
+  top: 0;
+  right: 0;
+  padding: 3px 6px;
+  border: 0;
+  border-radius: 3px;
+  background: none;
+  font-family: system-ui;
+  font-size: 12px;
+  line-height: 18px;
+  color: #666;
+  opacity: 0.3;
+  outline: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.m-mdic-copy-wrapper button.u-mdic-copy-btn:hover {
+  opacity: 1;
+}
+</style>
+<link rel="stylesheet" href="../node_modules//highlight.js/styles/felipec.css" />
+<h1>入职学习笔记</h1>
+<h2>Vite 自动导入插件</h2>
+<p>使用自动导入插件 <a href="https://www.npmjs.com/package/unplugin-auto-import"><code class="hljs"><span class="hljs-title">unplugin</span>-vite-<span class="hljs-keyword">import</span></code></a> 可以减除我们每次从某个库里引用模块的繁琐操作。我们使用的 <code class="hljs"><span class="hljs-attribute">arco-design</span></code> 这个 UI 框架就可以使用这个插件实现<strong>自动按需导入</strong>。包括 <code class="hljs"><span class="hljs-attribute">vue</span></code>、<code class="hljs"><span class="hljs-attribute">vue-router</span></code>、<code class="hljs"><span class="hljs-attribute">pinia</span></code> 等都可以使用该插件自动导入，无需手动导入：
+vue 相关的库的自动导入：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> <span class="hljs-title class_">AutoImport</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;unplugin-auto-import/vite&#x27;</span>
+<span class="hljs-comment">// import { ArcoResolver } from &#x27;unplugin-vue-components/resolvers&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">configAutoImport</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-title class_">AutoImport</span>({
+    <span class="hljs-attr">imports</span>: [<span class="hljs-string">&#x27;vue&#x27;</span>, <span class="hljs-string">&#x27;vue-router&#x27;</span>, <span class="hljs-string">&#x27;pinia&#x27;</span>]
+    <span class="hljs-comment">// resolvers: [ArcoResolver()]</span>
+  })
+  <span class="hljs-comment">// Components</span>
+}
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494570-1280">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="import AutoImport from 'unplugin-auto-import/vite'
+// import { ArcoResolver } from 'unplugin-vue-components/resolvers'
+
+export function configAutoImport() {
+  return AutoImport({
+    imports: ['vue', 'vue-router', 'pinia']
+    // resolvers: [ArcoResolver()]
+  })
+  // Components
+}
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494570-1280" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>按需导入 <code class="hljs"><span class="hljs-attribute">arco-design</span></code> 以及自动导入项目中的组件：</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArcoResolver</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;unplugin-vue-components/resolvers&#x27;</span>
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">Components</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;unplugin-vue-components/vite&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">configComponents</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Components</span>({
+    <span class="hljs-attr">resolvers</span>: [<span class="hljs-title class_">ArcoResolver</span>({ <span class="hljs-attr">sideEffect</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">importStyle</span>: <span class="hljs-string">&#x27;less&#x27;</span> })]
+  })
+}
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494585-26939">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="import { ArcoResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+
+export function configComponents() {
+  return Components({
+    resolvers: [ArcoResolver({ sideEffect: true, importStyle: 'less' })]
+  })
+}
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494585-26939" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>这样我们使用 <code class="hljs"><span class="hljs-attribute">arco design</span></code> 以及 <code class="hljs">@/components</code> 下的组件的时候可以直接使用，无需再手动引入。</p>
+<p><strong>注：默认自动引入 <code class="hljs">src/components</code> 下的 VUE 组件，如果你有其他地方的组件，或者你的组件目录并非这个目录，可以通过配置 <code class="hljs"><span class="hljs-built_in">dirs</span></code> 目录来实现对他们的自动引入。</strong></p>
+<p>这里需要注意，如果我们使用了 <code class="hljs"><span class="hljs-attribute">arco-design</span></code> 的配置主题的功能，那么按需导入的时候需要在插件中开启 <code class="hljs"><span class="hljs-keyword">less</span></code> 样式文件的引入（传入 <code class="hljs">{importStyle: <span class="hljs-string">&quot;less&quot;</span>}</code> 这个配置），传入之后就不需要在全局引入 <code class="hljs"><span class="hljs-attribute">arco-design</span></code> 的 less 文件了，插件会帮我们按需引入，这得益于 <code class="hljs"><span class="hljs-attribute">arco-design</span></code> 在组件库内部对组件样式变量做了非常细致的抽离提取，可以满足对组件细腻度的定制。</p>
+<h2>unocss 的使用</h2>
+<p>官网<a href="https://unocss.dev/guide/">https://unocss.dev/guide/</a>对 <code class="hljs"><span class="hljs-attribute">unocss</span></code> 进行了详细的介绍，这里只记录要点。</p>
+<h3>unocss 集成</h3>
+<p>官网有介绍并推荐使用专用的位于根目录的 <code class="hljs">uno.config.ts</code> 配置文件来对 <code class="hljs"><span class="hljs-attribute">unocss</span></code> 进行配置，这要能得到更好的 IDE 支持和其他集成。不过官网也给出了使用 <code class="hljs"><span class="hljs-attribute">vite</span></code> 集成 <code class="hljs"><span class="hljs-attribute">unocss</span></code> 的解决方案，简单地说就是通过 <code class="hljs">unocss/vite</code> 包默认暴露的方法来将 <code class="hljs"><span class="hljs-attribute">unocss</span></code> 配置为 <code class="hljs"><span class="hljs-attribute">vite</span></code> 的插件，然后将，该插件传递给 <code class="hljs">vite.config.ts</code> 的 <code class="hljs"><span class="hljs-attribute">plugins</span></code> 配置中。详细可查<a href="https://unocss.dev/integrations/vite">文档</a>。</p>
+<h3>配置</h3>
+<p><code class="hljs"><span class="hljs-attribute">unocss</span></code> 的配置项有以下这些：</p>
+<ul>
+<li>preset：预置，用于配置预置的一些配置。</li>
+<li>rules：定义规则。</li>
+<li>shortcuts：定义简写。</li>
+<li>theme：定义主题变量。</li>
+<li>variants：将自定义约定应用于规则。</li>
+<li>transformers：按照官方的说法，转换器用于转换源代码以支持约定。它提供了一个统一的接口来转换源代码以支持约定。</li>
+<li>其他。</li>
+</ul>
+<p>下面分别详细介绍这些配置的功能和配置方法。</p>
+<h4>preset</h4>
+<p><code class="hljs"><span class="hljs-attribute">preset</span></code> 是 <code class="hljs"><span class="hljs-attribute">unocss</span></code> 的核心之一，在这里我们可以选择是否使用 <code class="hljs"><span class="hljs-attribute">unocss</span></code> 本身的配置，以及我们还可以自定义自己的 <code class="hljs"><span class="hljs-attribute">preset</span></code> 团队及自己用。比如如果我们需要使用 <code class="hljs"><span class="hljs-attribute">unocss</span></code> 自己的 rules，就需要在 <code class="hljs"><span class="hljs-attribute">preset</span></code> 配置中添加 <code class="hljs"><span class="hljs-attribute">presetUno</span></code> 配置，如果使用通过属性来添加样式类名的功能就需要将 <code class="hljs"><span class="hljs-attribute">presetAttributify</span></code> 配置到 <code class="hljs"><span class="hljs-attribute">preset</span></code> 中。</p>
+<h4>rules</h4>
+<p>用来自定义生成 <code class="hljs"><span class="hljs-attribute">css</span></code> 的规则，比如我们进行如下设置：</p>
+<pre><code class="hljs language-ts"><span class="hljs-attr">rules</span>: [[<span class="hljs-string">&#x27;ml-1&#x27;</span>, { <span class="hljs-string">&#x27;margin-left&#x27;</span>: <span class="hljs-string">&#x27;8px&#x27;</span> }]]
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494886-67823">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="rules: [['ml-1', { 'margin-left': '8px' }]]
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494886-67823" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>那么我们在元素或者组件上面就可以这样写来控制元素的样式：</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">a-button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;ml-1&quot;</span> <span class="hljs-attr">important-color-red</span> @<span class="hljs-attr">click</span>=<span class="hljs-string">&quot;handleClick&quot;</span>&gt;</span>{{ a }}<span class="hljs-tag">&lt;/<span class="hljs-name">a-button</span>&gt;</span>
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494886-14675">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="&lt;a-button type=&quot;primary&quot; class=&quot;ml-1&quot; important-color-red @click=&quot;handleClick&quot;&gt;{{ a }}&lt;/a-button&gt;
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494886-14675" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>但是这样配置有个缺点：不够灵活，<code class="hljs"><span class="hljs-attribute">unocss</span></code> 提供了更加灵活的配置方式：</p>
+<pre><code class="hljs language-ts"><span class="hljs-attr">rules</span>: [[<span class="hljs-regexp">/^ml-(\d+)$/</span>, <span class="hljs-function">(<span class="hljs-params">[, d]</span>) =&gt;</span> ({ <span class="hljs-string">&#x27;margin-left&#x27;</span>: <span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-built_in">parseInt</span>(d) * <span class="hljs-number">8</span>}</span>px`</span> })]]
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494916-90666">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="rules: [[/^ml-(\d+)$/, ([, d]) =&gt; ({ 'margin-left': `${parseInt(d) * 8}px` })]]
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494916-90666" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>这样子就可以这样子更加灵活地去写样式：</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a-button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span> <span class="hljs-attr">status</span>=<span class="hljs-string">&quot;danger&quot;</span> <span class="hljs-attr">ml-2</span>&gt;</span>Danger Button<span class="hljs-tag">&lt;/<span class="hljs-name">a-button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">a-button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span> <span class="hljs-attr">status</span>=<span class="hljs-string">&quot;danger&quot;</span> <span class="hljs-attr">ml-3</span>&gt;</span>Danger Button<span class="hljs-tag">&lt;/<span class="hljs-name">a-button</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494927-81412">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="&lt;template&gt;
+  &lt;div&gt;
+    &lt;a-button type=&quot;primary&quot; status=&quot;danger&quot; ml-2&gt;Danger Button&lt;/a-button&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;a-button type=&quot;primary&quot; status=&quot;danger&quot; ml-3&gt;Danger Button&lt;/a-button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494927-81412" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<h4>shortcuts</h4>
+<p>按照官方的介绍，<code class="hljs"><span class="hljs-attribute">shortcuts</span></code> 可以让我们把多个 <code class="hljs"><span class="hljs-keyword">rule</span></code> 合并为一个简写形式。用法举例：</p>
+<pre><code class="hljs language-ts"><span class="hljs-attr">shortcuts</span>: {
+    <span class="hljs-string">&#x27;flex-center&#x27;</span>: [<span class="hljs-string">&quot;flex&quot;</span>, <span class="hljs-string">&quot;justify-center&quot;</span>, <span class="hljs-string">&quot;items-center&quot;</span>],
+    <span class="hljs-string">&#x27;flex-btw&#x27;</span>: [<span class="hljs-string">&quot;flex&quot;</span>, <span class="hljs-string">&quot;flex-justify-between&quot;</span>, <span class="hljs-string">&quot;items-center&quot;</span>]
+}
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494941-61307">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="shortcuts: {
+    'flex-center': [&quot;flex&quot;, &quot;justify-center&quot;, &quot;items-center&quot;],
+    'flex-btw': [&quot;flex&quot;, &quot;flex-justify-between&quot;, &quot;items-center&quot;]
+}
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494941-61307" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<h4>theme</h4>
+<p><code class="hljs"><span class="hljs-attribute">unocss</span></code> 同样支持主题系统，我们可以在配置中通过配置 <code class="hljs"><span class="hljs-attribute">theme</span></code> 字段来主题变量，和 <code class="hljs"><span class="hljs-attribute">Mui</span></code> 的主题配置是有类似的地方的。用法：</p>
+<pre><code class="hljs language-ts"><span class="hljs-attr">theme</span>: {
+      <span class="hljs-attr">colors</span>: {
+        <span class="hljs-attr">primary</span>: <span class="hljs-string">&#x27;#3f51b5&#x27;</span>,
+        <span class="hljs-attr">light</span>: <span class="hljs-string">&#x27;#fff&#x27;</span>
+      }
+    }
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494952-9410">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="theme: {
+      colors: {
+        primary: '#3f51b5',
+        light: '#fff'
+      }
+    }
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494952-9410" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>当然 <code class="hljs"><span class="hljs-attribute">theme</span></code> 配置项不只是配置颜色，还可以配置断点（<code class="hljs"><span class="hljs-attribute">breakpoints</span></code>）等，具体查看<a href="https://unocss.dev/config/theme">官方文档</a>。</p>
+<h4>variants</h4>
+<p><code class="hljs"><span class="hljs-attribute">variants</span></code> 允许我们对现有的规则应用一些变体，比如下面的例子：</p>
+<pre><code class="hljs language-ts"><span class="hljs-attr">variants</span>: [
+  <span class="hljs-comment">// hover:</span>
+  <span class="hljs-function">(<span class="hljs-params">matcher</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!matcher.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&#x27;children:&#x27;</span>)) <span class="hljs-keyword">return</span> matcher
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-comment">// slice `hover:` prefix and passed to the next variants and rules</span>
+      <span class="hljs-attr">matcher</span>: matcher.<span class="hljs-title function_">slice</span>(<span class="hljs-number">9</span>),
+      <span class="hljs-attr">selector</span>: <span class="hljs-function">(<span class="hljs-params">s</span>) =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${s}</span>&gt;*`</span>
+    }
+  }
+]
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494963-58394">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="variants: [
+  // hover:
+  (matcher) =&gt; {
+    if (!matcher.startsWith('children:')) return matcher
+    return {
+      // slice `hover:` prefix and passed to the next variants and rules
+      matcher: matcher.slice(9),
+      selector: (s) =&gt; `${s}&gt;*`
+    }
+  }
+]
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494963-58394" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>这个 <code class="hljs"><span class="hljs-attribute">variants</span></code> 定义好后，我们在组件中这样使用：</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">children:ml-5</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">text-light</span> <span class="hljs-attr">bg-primary</span>&gt;</span>this is primary text<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">children:ml-10</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">text-light</span> <span class="hljs-attr">bg-primary</span>&gt;</span>this is primary text<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494966-18066">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="&lt;div children:ml-5&gt;
+  &lt;p text-light bg-primary&gt;this is primary text&lt;/p&gt;
+&lt;/div&gt;
+&lt;div children:ml-10&gt;
+  &lt;p text-light bg-primary&gt;this is primary text&lt;/p&gt;
+&lt;/div&gt;
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494966-18066" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p><code class="hljs"><span class="hljs-attribute">unocss</span></code> 会生成如下的 css 配置：</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-attr">[children\:ml-5=<span class="hljs-string">&#x27;&#x27;</span>]</span> &gt; * {
+  <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">40px</span>;
+}
+
+<span class="hljs-selector-attr">[children\:ml-10=<span class="hljs-string">&#x27;&#x27;</span>]</span> &gt; * {
+  <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">80px</span>;
+}
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494970-6587">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="[children\:ml-5=''] &gt; * {
+  margin-left: 40px;
+}
+
+[children\:ml-10=''] &gt; * {
+  margin-left: 80px;
+}
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494970-6587" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>我们还可以用 <code class="hljs"><span class="hljs-attribute">hover</span></code> 效果来举例：
+配置：</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// hover</span>
+<span class="hljs-attr">variants</span>: [
+  <span class="hljs-function">(<span class="hljs-params">matcher</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (!matcher.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&#x27;hover:&#x27;</span>)) <span class="hljs-keyword">return</span> matcher
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-comment">// slice `hover:` prefix and passed to the next variants and rules</span>
+      <span class="hljs-attr">matcher</span>: matcher.<span class="hljs-title function_">slice</span>(<span class="hljs-number">6</span>),
+      <span class="hljs-attr">selector</span>: <span class="hljs-function">(<span class="hljs-params">s</span>) =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${s}</span>:hover`</span>
+    }
+  }
+]
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494978-38429">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="// hover
+variants: [
+  (matcher) =&gt; {
+    if (!matcher.startsWith('hover:')) return matcher
+    return {
+      // slice `hover:` prefix and passed to the next variants and rules
+      matcher: matcher.slice(6),
+      selector: (s) =&gt; `${s}:hover`
+    }
+  }
+]
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494978-38429" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>使用：</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">text-light</span> <span class="hljs-attr">bg-primary</span> <span class="hljs-attr">hover:bg-white</span> <span class="hljs-attr">hover:text-primary</span>&gt;</span>this is primary text<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494979-97594">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="&lt;p text-light bg-primary hover:bg-white hover:text-primary&gt;this is primary text&lt;/p&gt;
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494979-97594" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p>生成的 css：</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-attr">[hover\:text-primary=<span class="hljs-string">&#x27;&#x27;</span>]</span><span class="hljs-selector-pseudo">:hover</span> {
+  <span class="hljs-attr">--un-text-opacity</span>: <span class="hljs-number">1</span>;
+  <span class="hljs-attribute">color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">63</span>, <span class="hljs-number">81</span>, <span class="hljs-number">181</span>, <span class="hljs-built_in">var</span>(--un-text-opacity));
+}
+
+<span class="hljs-selector-attr">[hover\:bg-white=<span class="hljs-string">&#x27;&#x27;</span>]</span><span class="hljs-selector-pseudo">:hover</span> {
+  <span class="hljs-attr">--un-bg-opacity</span>: <span class="hljs-number">1</span>;
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-built_in">var</span>(--un-bg-opacity));
+}
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151494980-16816">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="[hover\:text-primary='']:hover {
+  --un-text-opacity: 1;
+  color: rgba(63, 81, 181, var(--un-text-opacity));
+}
+
+[hover\:bg-white='']:hover {
+  --un-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--un-bg-opacity));
+}
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151494980-16816" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<h4>transformers</h4>
+<p>对于 <code class="hljs"><span class="hljs-attribute">transformers</span></code> 的理解还需要更具体，加强理解后再来记录。</p>
+<h2>vite 环境变量</h2>
+<p>vite 在一个特殊的 <code class="hljs"><span class="hljs-keyword">import</span>.meta.env</code> 上面暴露环境变量。我们可以配置不同环境的环境变量：</p>
+<ul>
+<li>默认的所有情况都会加载：.env</li>
+<li>本地加载，会被 Git 忽略：.env.local</li>
+<li>开发环境加载：.env.development</li>
+<li>生产环境加载：.env.production</li>
+<li>本地开发环境加载，会被 Git 忽略：.env.development.local</li>
+<li>本地生产环境加载，会被 Git 忽略：.env.production.local</li>
+</ul>
+<p>这里需要注意他们之间的优先级：</p>
+<pre><code class="hljs"><span class="hljs-selector-class">.env</span> &lt; <span class="hljs-selector-class">.env</span><span class="hljs-selector-class">.local</span> &lt; <span class="hljs-selector-class">.env</span>.<span class="hljs-selector-attr">[mode]</span> &lt; <span class="hljs-selector-class">.env</span>.<span class="hljs-selector-attr">[mode]</span><span class="hljs-selector-class">.local</span> &lt; 环境中配置的环境变量
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151495001-53780">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content=".env &lt; .env.local &lt; .env.[mode] &lt; .env.[mode].local &lt; 环境中配置的环境变量
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151495001-53780" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<p><strong>注：windows 命令行设置和查看环境变量的命令：</strong></p>
+<ul>
+<li>创建和设置环境变量：set ${path}=${value}</li>
+<li>删除环境变量：set ${path}=</li>
+<li>查看环境变量：echo %${path}%</li>
+</ul>
+<h2>常见问题记录</h2>
+<ul>
+<li>
+<p>Vite 启动后服务可以通过 <code class="hljs"><span class="hljs-attribute">localhost</span></code> 和 <code class="hljs"><span class="hljs-number">127.0.0.1</span></code> 访问却不能通过 IP 地址访问，需要配置 <code class="hljs"><span class="hljs-keyword">server</span>.host</code> 为 <code class="hljs"><span class="hljs-number">0.0.0.0</span></code>。</p>
+</li>
+<li>
+<p>使用 <code class="hljs">unplugin-<span class="hljs-built_in">auto</span>-<span class="hljs-keyword">import</span></code> 自动引入模块后，使用的时候没有类型声明，这是因为我们没有将生成的 <code class="hljs"><span class="hljs-keyword">auto</span>-<span class="hljs-keyword">imports</span>.d.ts</code> 这个声明文件配置到 <code class="hljs">tsconfig.json</code>（或者 <code class="hljs">tsconfig.app.json</code>）中。ts 找不到相应的类型声明。</p>
+</li>
+<li>
+<p>import.meta.glob: 用法如下</p>
+</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> <span class="hljs-attr">modules</span>: <span class="hljs-built_in">any</span> = <span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-title function_">glob</span>(<span class="hljs-string">&#x27;./types/*.ts&#x27;</span>, { <span class="hljs-attr">eager</span>: <span class="hljs-literal">true</span> })
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(modules)
+<span class="hljs-keyword">let</span> <span class="hljs-attr">result</span>: <span class="hljs-built_in">any</span>[] = []
+<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(modules).<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> defaultModule = modules[key].<span class="hljs-property">default</span>
+  <span class="hljs-keyword">if</span> (!defaultModule) <span class="hljs-keyword">return</span>
+  <span class="hljs-keyword">const</span> moduleList = <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(defaultModule) ? [...defaultModule] : [defaultModule]
+  result.<span class="hljs-title function_">push</span>(...moduleList)
+})
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result)
+</code><div class="m-mdic-copy-wrapper"><div class="u-mdic-copy-notify" id="j-notify-1689151495100-42595">copy success</div><button class="u-mdic-copy-btn j-mdic-copy-btn" data-mdic-content="const modules: any = import.meta.glob('./types/*.ts', { eager: true })
+console.log(modules)
+let result: any[] = []
+Object.keys(modules).forEach((key) =&gt; {
+  const defaultModule = modules[key].default
+  if (!defaultModule) return
+  const moduleList = Array.isArray(defaultModule) ? [...defaultModule] : [defaultModule]
+  result.push(...moduleList)
+})
+console.log(result)
+" data-mdic-attach-content="" data-mdic-notify-id="j-notify-1689151495100-42595" data-mdic-notify-delay="2000" data-mdic-copy-fail-text="copy fail" onclick="!function(t){const e={copy:(t='',e='')=>new Promise((c,o)=>{const n=document.createElement('textarea'),d=e?`\n\n${e}`:e;n.value=`${t}${d}`,document.body.appendChild(n),n.select();try{const t=document.execCommand('copy');document.body.removeChild(n),t?c():o()}catch(t){document.body.removeChild(n),o()}}),btnClick(t){const c=t&&t.dataset?t.dataset:{},o=c.mdicNotifyId,n=document.getElementById(o),d=c.mdicNotifyDelay,i=c.mdicCopyFailText;e.copy(c.mdicContent,c.mdicAttachContent).then(()=>{n.style.display='block',setTimeout(()=>{n.style.display='none'},d)}).catch(()=>{alert(i)})}};e.btnClick(t)}(this);">Copy</button></div></pre>
+<ul>
+<li><code class="hljs"><span class="hljs-attribute">toRaw</span></code> 和 <code class="hljs"><span class="hljs-attribute">markRow</span></code>：
+<ul>
+<li>toRaw 是将一个响应式的对象完全转化为一个普通的对象
+普通对象的改变不会引起页面的变化，当我们改变数据不影响页面的时候一般会使用他</li>
+<li>markRaw 标记一个对象，不会被 vue 的响应式函数转化为响应式对象
+有些值不应该被设置成响应式的，比如第三方的类库
+当有一些比较大的列表的时候，跳过响应式的转化会增加性能</li>
+</ul>
+</li>
+</ul>
