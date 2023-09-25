@@ -12,11 +12,16 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@antv/x6": "^2.14.1",
+    "@antv/x6-plugin-scroller": "^2.0.10",
+    "@types/dagre": "^0.7.50",
     "@wyg/business-components": "^1.0.41",
     "@wyg/wyg-sso": "^1.0.37",
     "axios": "^1.4.0",
+    "dagre": "^0.8.5",
     "dayjs": "^1.11.9",
     "hsf-tools": "^1.0.93",
+    "insert-css": "^2.0.0",
     "lodash-es": "^4.17.21",
     "markdown-it": "^13.0.1",
     "markdown-it-code-copy": "^0.1.1",

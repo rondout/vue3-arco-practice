@@ -25,6 +25,10 @@ import SelectableTree from '@/components/trees/SelectableTree.vue'
 import CheckableTree from '@/components/trees/CheckableTree.vue'
 import DynamicDataTree from '@/components/trees/DynamicDataTree.vue'
 import CustomFieldNamesTree from '@/components/trees/CustomFieldNamesTree.vue'
+
+onMounted(() => {
+  console.log('TREE_MOUNTED')
+})
 </script>
 
 <style lang="less" scoped></style>

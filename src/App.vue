@@ -39,6 +39,7 @@ const navigationBarItems = [
   new NavigationBarItemFactory('/arco-tables', 'Click to view Arco Table Page', 'Table Page'),
   new NavigationBarItemFactory('/arco-trees', 'Click to view Arco Tree Page', 'Tree Page'),
   new NavigationBarItemFactory('/arco-forms', 'Click to view Arco Forms Page', 'Forms Page'),
+  new NavigationBarItemFactory('/antv-components', 'Click to view AntV Page', 'AntV Page'),
   new NavigationBarItemFactory(
     '/arco-custom-components',
     'Click to view Custom Components from NPM',

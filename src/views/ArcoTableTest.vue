@@ -44,6 +44,10 @@ import FilterableTable from '@/components/tables/FilterableTable.vue'
 import CustomFilterableTable from '@/components/tables/CustomFilterableTable.vue'
 import HeadGroupTable from '@/components/tables/HeadGroupTable.vue'
 import CustomRenderTable from '@/components/tables/CustomRenderTable.vue'
+
+onMounted(() => {
+  console.log('TABLE_MOUNTED')
+})
 </script>
 
 <style lang="less" scoped></style>

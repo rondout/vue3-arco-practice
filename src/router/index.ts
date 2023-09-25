@@ -45,6 +45,11 @@ const router = createRouter({
       component: () => import('@/views/CustomComponents.vue')
     },
     {
+      path: '/antv-components',
+      name: 'antv_components',
+      component: () => import('@/views/AntVTest.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not_found',
       component: () => import('@/views/NotFound.vue')
